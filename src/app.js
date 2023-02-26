@@ -78,6 +78,13 @@ App = {
         window.location.reload()
     },
 
+    toggleCompleted: async (event) => {
+        App.setLoading(true)
+        const taskId = event.target.name
+        await App.toDoList.toggleCompleted(taskId)
+        window.location.reload()
+    },
+
     renderTasks: async () => {
         // Load the total task count from the blockchain
         const taskCount = await App.toDoList.taskCount();
@@ -97,7 +104,7 @@ App = {
             $newTaskTemplate.find('input')
                 .prop('name', taskId)
                 .prop('checked', taskCompleted)
-                // .on('click', App.toggleCompleted)
+                .on('click', App.toggleCompleted)
 
             if (taskCompleted) {
                 $('#completedTaskList').append($newTaskTemplate)
